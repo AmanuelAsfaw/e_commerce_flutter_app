@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/screens/login.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/mybutton.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -28,7 +30,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -137,16 +139,11 @@ class _SignUpState extends State<SignUp> {
                           border: OutlineInputBorder(),
                         ),
                       ),
-                      Container(
-                        height: 45,
-                        width: double.infinity,
-                        child: RaisedButton(
-                            child: Text("Register"),
-                            color: Colors.blueGrey[400],
-                            onPressed: () {
-                              validation();
-                            }),
-                      ),
+                      MyButton(
+                          onPressed: () {
+                            validation();
+                          },
+                          name: "Register"),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/screens/signup.dart';
+import 'package:ecommerce_app/widgets/mybutton.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -87,16 +88,11 @@ class _LoginState extends State<Login> {
                               )),
                           hintStyle: TextStyle(color: Colors.black)),
                     ),
-                    Container(
-                      height: 45,
-                      width: double.infinity,
-                      child: RaisedButton(
-                          child: Text("Login"),
-                          color: Colors.blueGrey[400],
-                          onPressed: () {
-                            validation();
-                          }),
-                    ),
+                    MyButton(
+                        onPressed: () {
+                          validation();
+                        },
+                        name: "Login"),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
