@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/screens/signup.dart';
+import 'package:ecommerce_app/widgets/changeScreen.dart';
 import 'package:ecommerce_app/widgets/mybutton.dart';
 import 'package:flutter/material.dart';
 
@@ -93,25 +94,13 @@ class _LoginState extends State<Login> {
                           validation();
                         },
                         name: "Login"),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("I Have No Account!"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (ctx) => SignUp()));
-                          },
-                          child: Text(
-                            "SignUp",
-                            style: TextStyle(color: Colors.cyan, fontSize: 20),
-                          ),
-                        )
-                      ],
-                    )
+                    ChangeScreen(
+                        name: "SignUp",
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (ctx) => SignUp()));
+                        },
+                        whichAccount: "I Have No Account!")
                   ],
                 ),
               )

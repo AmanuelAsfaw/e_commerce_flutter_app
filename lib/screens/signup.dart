@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/screens/login.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/changeScreen.dart';
 import '../widgets/mybutton.dart';
 
 class SignUp extends StatefulWidget {
@@ -144,28 +145,13 @@ class _SignUpState extends State<SignUp> {
                             validation();
                           },
                           name: "Register"),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("I Have Already An Account!"),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (ctx) => Login()));
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.cyan,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      )
+                      ChangeScreen(
+                          name: "Login",
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (ctx) => Login()));
+                          },
+                          whichAccount: "I Have Already An Account!")
                     ],
                   ),
                 )
