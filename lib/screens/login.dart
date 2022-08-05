@@ -2,6 +2,7 @@ import 'package:ecommerce_app/screens/signup.dart';
 import 'package:ecommerce_app/widgets/changeScreen.dart';
 import 'package:ecommerce_app/widgets/myTextFormField.dart';
 import 'package:ecommerce_app/widgets/mybutton.dart';
+import 'package:ecommerce_app/widgets/passwordTextFormField.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -57,33 +58,22 @@ class _LoginState extends State<Login> {
                             return "Email Is Invalid";
                           }
                         }),
-                    TextFormField(
-                      obscureText: obserText,
-                      validator: (value) {
-                        if (value == "" || value == null) {
-                          return "Please Fill Password";
-                        } else if (value.length < 8) {
-                          return "Password Is too short";
-                        }
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Password",
-                          suffixIcon: GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                                setState(() {
-                                  obserText = !obserText;
-                                });
-                              },
-                              child: Icon(
-                                obserText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Colors.black,
-                              )),
-                          hintStyle: TextStyle(color: Colors.black)),
-                    ),
+                    PasswordTextFormField(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          setState(() {
+                            obserText = !obserText;
+                          });
+                        },
+                        name: "Password",
+                        obserText: obserText,
+                        validator: (value) {
+                          if (value == "" || value == null) {
+                            return "Please Fill Password";
+                          } else if (value.length < 8) {
+                            return "Password Is too short";
+                          }
+                        }),
                     MyButton(
                         onPressed: () {
                           validation();

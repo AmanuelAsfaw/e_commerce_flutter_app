@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../widgets/changeScreen.dart';
 import '../widgets/myTextFormField.dart';
 import '../widgets/mybutton.dart';
+import '../widgets/passwordTextFormField.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -84,36 +85,22 @@ class _SignUpState extends State<SignUp> {
                               return "Email is Invalid";
                             }
                           }),
-                      TextFormField(
-                        obscureText: obserText,
-                        validator: (value) {
-                          if (value == "" || value == null) {
-                            return "Please Fill Password";
-                          } else if (value.length < 8) {
-                            return "Password is too short";
-                          }
-                          return "";
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                obserText = !obserText;
-                              });
-                              FocusScope.of(context).unfocus();
-                            },
-                            child: Icon(
-                              obserText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.black,
-                            ),
-                          ),
-                          hintStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
+                      PasswordTextFormField(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            setState(() {
+                              obserText = !obserText;
+                            });
+                          },
+                          name: "Password",
+                          obserText: obserText,
+                          validator: (value) {
+                            if (value == "" || value == null) {
+                              return "Please Fill Password";
+                            } else if (value.length < 8) {
+                              return "Password is too short";
+                            }
+                          }),
                       MyTextFormField(
                           name: "Phone Number",
                           validator: (value) {
