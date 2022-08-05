@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/screens/signup.dart';
 import 'package:ecommerce_app/widgets/changeScreen.dart';
+import 'package:ecommerce_app/widgets/myTextFormField.dart';
 import 'package:ecommerce_app/widgets/mybutton.dart';
 import 'package:flutter/material.dart';
 
@@ -47,20 +48,15 @@ class _LoginState extends State<Login> {
                       style:
                           TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                     ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == "" || value == null) {
-                          return "Please Fill Email";
-                        } else if (!regExp.hasMatch(value)) {
-                          return "Email Is Invalid";
-                        }
-                        return "";
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Email",
-                          hintStyle: TextStyle(color: Colors.black)),
-                    ),
+                    MyTextFormField(
+                        name: "Email",
+                        validator: (value) {
+                          if (value == "" || value == null) {
+                            return "Please Fill Email";
+                          } else if (!regExp.hasMatch(value)) {
+                            return "Email Is Invalid";
+                          }
+                        }),
                     TextFormField(
                       obscureText: obserText,
                       validator: (value) {
@@ -69,7 +65,6 @@ class _LoginState extends State<Login> {
                         } else if (value.length < 8) {
                           return "Password Is too short";
                         }
-                        return "";
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),

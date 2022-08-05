@@ -2,6 +2,7 @@ import 'package:ecommerce_app/screens/login.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/changeScreen.dart';
+import '../widgets/myTextFormField.dart';
 import '../widgets/mybutton.dart';
 
 class SignUp extends StatefulWidget {
@@ -64,37 +65,25 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      TextFormField(
-                        validator: (value) {
-                          int length = value != null ? value.length : 0;
-                          if (length < 6) {
-                            return "UserName is too short";
-                          } else if (value == "" || value == null) {
-                            return "Please Fill UserName";
-                          }
-                          return "";
-                        },
-                        decoration: InputDecoration(
-                          hintText: "UserName",
-                          hintStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == "" || value == null) {
-                            return "Please Fill Email";
-                          } else if (!regExp.hasMatch(value)) {
-                            return "Email is Invalid";
-                          }
-                          return "";
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          hintStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
+                      MyTextFormField(
+                          name: "UserName",
+                          validator: (value) {
+                            int length = value != null ? value.length : 0;
+                            if (length < 6) {
+                              return "UserName is too short";
+                            } else if (value == "" || value == null) {
+                              return "Please Fill UserName";
+                            }
+                          }),
+                      MyTextFormField(
+                          name: "Email",
+                          validator: (value) {
+                            if (value == "" || value == null) {
+                              return "Please Fill Email";
+                            } else if (!regExp.hasMatch(value)) {
+                              return "Email is Invalid";
+                            }
+                          }),
                       TextFormField(
                         obscureText: obserText,
                         validator: (value) {
@@ -125,21 +114,15 @@ class _SignUpState extends State<SignUp> {
                           border: OutlineInputBorder(),
                         ),
                       ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == "" || value == null) {
-                            return "Please Fill Phone Number";
-                          } else if (value.length < 11) {
-                            return "Phone Number Must Be 11";
-                          }
-                          return "";
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Phone Number",
-                          hintStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
+                      MyTextFormField(
+                          name: "Phone Number",
+                          validator: (value) {
+                            if (value == "" || value == null) {
+                              return "Please Fill Phone Number";
+                            } else if (value.length < 11) {
+                              return "Phone Number Must Be 11";
+                            }
+                          }),
                       MyButton(
                           onPressed: () {
                             validation();
