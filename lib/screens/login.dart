@@ -28,6 +28,59 @@ class _LoginState extends State<Login> {
     }
   }
 
+  Widget _buildAllPart() {
+    return Container(
+      height: 300,
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            "Login",
+            style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+          ),
+          MyTextFormField(
+              name: "Email",
+              validator: (value) {
+                if (value == "" || value == null) {
+                  return "Please Fill Email";
+                } else if (!regExp.hasMatch(value)) {
+                  return "Email Is Invalid";
+                }
+              }),
+          PasswordTextFormField(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                setState(() {
+                  obserText = !obserText;
+                });
+              },
+              name: "Password",
+              obserText: obserText,
+              validator: (value) {
+                if (value == "" || value == null) {
+                  return "Please Fill Password";
+                } else if (value.length < 8) {
+                  return "Password Is too short";
+                }
+              }),
+          MyButton(
+              onPressed: () {
+                validation();
+              },
+              name: "Login"),
+          ChangeScreen(
+              name: "SignUp",
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (ctx) => SignUp()));
+              },
+              whichAccount: "I Have No Account!")
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,59 +90,7 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 300,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "Login",
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                    ),
-                    MyTextFormField(
-                        name: "Email",
-                        validator: (value) {
-                          if (value == "" || value == null) {
-                            return "Please Fill Email";
-                          } else if (!regExp.hasMatch(value)) {
-                            return "Email Is Invalid";
-                          }
-                        }),
-                    PasswordTextFormField(
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          setState(() {
-                            obserText = !obserText;
-                          });
-                        },
-                        name: "Password",
-                        obserText: obserText,
-                        validator: (value) {
-                          if (value == "" || value == null) {
-                            return "Please Fill Password";
-                          } else if (value.length < 8) {
-                            return "Password Is too short";
-                          }
-                        }),
-                    MyButton(
-                        onPressed: () {
-                          validation();
-                        },
-                        name: "Login"),
-                    ChangeScreen(
-                        name: "SignUp",
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (ctx) => SignUp()));
-                        },
-                        whichAccount: "I Have No Account!")
-                  ],
-                ),
-              )
-            ],
+            children: [_buildAllPart()],
           ),
         ),
       ),
