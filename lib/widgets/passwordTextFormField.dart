@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class PasswordTextFormField extends StatelessWidget {
   final bool obserText;
   final Function validator;
+  final Function onChanged;
   final Function onTap;
   final String name;
 
   PasswordTextFormField(
-      {required this.onTap,
+      {required this.onChanged,
+      required this.onTap,
       required this.name,
       required this.obserText,
       required this.validator});
@@ -18,6 +20,9 @@ class PasswordTextFormField extends StatelessWidget {
       obscureText: obserText,
       validator: (value) {
         return validator(value);
+      },
+      onChanged: (value) {
+        onChanged(value);
       },
       decoration: InputDecoration(
           border: OutlineInputBorder(),
