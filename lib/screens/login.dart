@@ -3,7 +3,9 @@ import 'package:ecommerce_app/widgets/changeScreen.dart';
 import 'package:ecommerce_app/widgets/myTextFormField.dart';
 import 'package:ecommerce_app/widgets/mybutton.dart';
 import 'package:ecommerce_app/widgets/passwordTextFormField.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,16 +15,44 @@ class Login extends StatefulWidget {
 }
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 String p =
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
 RegExp regExp = new RegExp(p);
 bool obserText = true;
+String email = "";
+String password = "";
 
 class _LoginState extends State<Login> {
-  void validation() {
+  void validation() async {
     if (_formKey.currentState!.validate()) {
-      print("Yes");
+      try {
+        UserCredential result = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        print(result.user?.uid);
+        if (result.user?.email != null && result.user != null) {
+          String? useremail = result.user?.email;
+          String email_ = useremail == null ? "" : useremail;
+
+          _scaffoldKey.currentState?.showSnackBar(
+            SnackBar(content: Text("user-email " + email_)),
+          );
+        }
+      } on PlatformException catch (e) {
+        print("PlatformException");
+        print(e.message.toString());
+        _scaffoldKey.currentState?.showSnackBar(
+          SnackBar(content: Text(e.message.toString())),
+        );
+      } on FirebaseAuthException catch (e) {
+        _scaffoldKey.currentState?.showSnackBar(
+          SnackBar(content: Text(e.message.toString())),
+        );
+      }
+      UserCredential result = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
     } else {
       print("No");
     }
@@ -41,6 +71,11 @@ class _LoginState extends State<Login> {
           ),
           MyTextFormField(
               name: "Email",
+              onChanged: (value) {
+                setState(() {
+                  email = value;
+                });
+              },
               validator: (value) {
                 if (value == "" || value == null) {
                   return "Please Fill Email";
@@ -53,6 +88,11 @@ class _LoginState extends State<Login> {
                 FocusScope.of(context).unfocus();
                 setState(() {
                   obserText = !obserText;
+                });
+              },
+              onChanged: (value) {
+                setState(() {
+                  password = value;
                 });
               },
               name: "Password",
@@ -84,6 +124,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Form(
         key: _formKey,
         child: Container(
